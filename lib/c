@@ -1,0 +1,92 @@
+lib/
+│
+├── main.dart
+│
+├── core/
+│   ├── constants.dart          ⟵ ألوان، نصوص، ثوابت عامة، روابط وصور افتراضية
+│   ├── supabase_client.dart    ⟵ تهيئة الاتصال مع Supabase
+│   ├── utils.dart              ⟵ دوال مساعدة عامة (تنسيق السعر، الرسائل، الخ)
+│   └── app_routes.dart         ⟵ جميع المسارات داخل التطبيق
+│
+├── models/
+│   ├── user_model.dart         ⟵ بيانات المستخدم أو الأدمن (نفس الجدول profiles)
+│   ├── category_model.dart     ⟵ الأقسام الرئيسية
+│   ├── subcategory_model.dart  ⟵ الأقسام الفرعية (لو وُجدت)
+│   ├── product_model.dart      ⟵ المنتجات
+│   ├── offer_model.dart        ⟵ العروض (نسبة خصم + مبلغ الشراء المطلوب)
+│   └── order_model.dart        ⟵ الطلبات + حالتها
+│
+├── data/
+│   └── repositories/
+│       ├── auth_repo.dart      ⟵ تسجيل الدخول، إنشاء الحساب، نسيان كلمة المرور
+│       ├── product_repo.dart   ⟵ جلب الأقسام، العروض، المنتجات من Supabase
+│       ├── cart_repo.dart      ⟵ إدارة سلة المشتريات محليًا أو عبر Supabase
+│       ├── order_repo.dart     ⟵ إرسال الطلبات واسترجاعها وتحديث حالتها
+│       └── admin_repo.dart     ⟵ عمليات الأدمن (إضافة قسم، منتج، عرض، تقارير)
+│
+├── cubits/
+│   ├── auth/
+│   │   ├── auth_cubit.dart
+│   │   └── auth_state.dart     ⟵ التحكم في الدخول والتسجيل ونسيان كلمة المرور
+│   │
+│   ├── home/
+│   │   ├── home_cubit.dart
+│   │   └── home_state.dart     ⟵ تحميل الأقسام والعروض والمنتجات الرئيسية
+│   │
+│   ├── product/
+│   │   ├── product_cubit.dart
+│   │   └── product_state.dart  ⟵ تحميل تفاصيل المنتج + الأقسام الفرعية
+│   │
+│   ├── cart/
+│   │   ├── cart_cubit.dart
+│   │   └── cart_state.dart     ⟵ إدارة عناصر السلة + الإرسال إلى الطلبات
+│   │
+│   ├── order/
+│   │   ├── order_cubit.dart
+│   │   └── order_state.dart    ⟵ استرجاع الطلبات وعرض حالتها (للعميل)
+│   │
+│   └── admin/
+│       ├── admin_cubit.dart
+│       └── admin_state.dart    ⟵ تحكم الأدمن في الأقسام والمنتجات والعروض والطلبات
+│
+├── ui/
+│   └── screens/
+│       ├── splash_screen.dart  ⟵ أول شاشة عند فتح التطبيق
+│       │
+│       ├── auth/
+│       │   ├── login_screen.dart      ⟵ تسجيل الدخول (عميل / أدمن)
+│       │   ├── register_screen.dart   ⟵ إنشاء حساب (الاسم، الإيميل، الهاتف، السؤال الأمني)
+│       │   └── forgot_screen.dart     ⟵ نسيان كلمة المرور (يعتمد على السؤال الأمني)
+│       │
+│       ├── main/                      ⟵ شاشات العميل
+│       │   ├── home_screen.dart       ⟵ العروض + الأقسام + المنتجات
+│       │   ├── cart_screen.dart       ⟵ سلة المشتريات + الإرسال كطلب
+│       │   ├── orders_screen.dart     ⟵ عرض الطلبات وحالتها
+│       │   ├── profile_screen.dart    ⟵ تعديل البيانات وكلمة المرور + معلومات المتجر
+│       │   └── about_store_screen.dart⟵ (اختياري) تفاصيل المتجر داخل (!) من الهوم
+│       │
+│       ├── product/
+│       │   ├── product_list.dart      ⟵ قائمة المنتجات داخل قسم أو قسم فرعي
+│       │   └── product_detail.dart    ⟵ تفاصيل المنتج + زر “إضافة إلى السلة”
+│       │
+│       └── admin/                     ⟵ شاشات الأدمن
+│           ├── admin_dashboard.dart   ⟵ لوحة تحكم الأدمن (التبويب الرئيسي)
+│           ├── add_category.dart      ⟵ إضافة قسم رئيسي
+│           ├── add_subcategory.dart   ⟵ إضافة قسم فرعي
+│           ├── add_product.dart       ⟵ إضافة منتج
+│           ├── add_offer.dart         ⟵ إضافة عرض
+│           ├── manage_orders.dart     ⟵ عرض جميع الطلبات + تعديل حالتها
+│           ├── reports_screen.dart    ⟵ تقارير (يومي، أسبوعي، شهري)
+│           └── whatsapp_send.dart     ⟵ إرسال تفاصيل الطلب إلى واتساب
+│
+├── widgets/
+│   ├── product_card.dart       ⟵ عرض منتج مصغر بصورة وسعر واسم
+│   ├── offer_carousel.dart     ⟵ سلايدر العروض في الصفحة الرئيسية
+│   ├── category_tile.dart      ⟵ عنصر قسم رئيسي أو فرعي
+│   ├── empty_message.dart      ⟵ عند عدم توفر عروض أو منتجات
+│   ├── bottom_nav.dart         ⟵ شريط التنقل بين (Home - Cart - Orders)
+│   ├── custom_button.dart      ⟵ زر عام للتطبيق
+│   └── text_field.dart         ⟵ حقل إدخال عام (مع label وvalidator)
+│
+└── localization/
+    └── app_localization.dart   ⟵ ترجمة مستقبلية (عربي / إنجليزي)
